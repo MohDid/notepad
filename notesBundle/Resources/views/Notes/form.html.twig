@@ -1,0 +1,79 @@
+<div class="well">
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+  {{ form_errors(form) }}
+
+  <div class="form-group">
+    <!-- champs title -->
+    <div class="row">
+    {{ form_label(form.Title, "Titre", {'label_attr': {'class': 'col-md-10 col-md-offset-1'}}) }}
+    {{ form_errors(form.Title) }}
+    </div>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+          {{ form_widget(form.Title, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <!-- champs content -->
+    <div class="row">
+    {{ form_label(form.Content, "Contenu", {'label_attr': {'class': 'col-md-10 col-md-offset-1'}}) }}
+    {{ form_errors(form.Content) }}
+    </div>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+          {{ form_widget(form.Content, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <!-- bouton Ajouter un Tag -->
+    <div class="row">
+      {% block Tag_Bloc %}
+      <div class="col-md-10 col-md-offset-1">
+        <a class="btn btn-large btn-primary" id="btnTag" href="#">Ajouter un Tag</a>
+      </div>
+      {% endblock %}
+    </div>
+    <!-- champs date -->
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        {{ form_row(form.Date) }}
+      </div>
+    </div>
+    <!-- champs category -->
+    <div class="row">
+    {{ form_label(form.Category, "Catégorie", {'label_attr': {'class': 'col-md-10 col-md-offset-1'}}) }}
+    {{ form_errors(form.Category) }}
+    </div>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+          {{ form_widget(form.Category, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <br>
+    <!-- bouton Sauvegarder -->
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        {{ form_widget(form.Sauvegarder, {'attr': {'class': 'btn btn-default'}}) }}
+      </div>
+    </div>
+  </div>
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+  <!-- Section JavaScript -->
+  {% block Javascript %}
+    <script>
+    function wrapText(elementID, openTag, closeTag){
+      //alert('Function called');
+      var textArea = $('#' + elementID);
+      var len = textArea.val().length;
+      var start = textArea[0].selectionStart;
+      var end = textArea[0].selectionEnd;
+      var selectedText = textArea.val().substring(start, end);
+      var replacement = openTag + selectedText + closeTag;
+      textArea.val(textArea.val().substring(0, start) + replacement + textArea.val().substring(end, len));
+    }
+
+      $('#btnTag').click(function(){
+        wrapText("form_Content", "<tag>", "</tag>");
+      });
+    </script>
+  {% endblock %}
+</div>
