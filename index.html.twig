@@ -1,0 +1,86 @@
+{# src/notesBundle/Resources/views/Notes/index.html.twig #}
+
+{% extends "notesBundle::layout.html.twig" %}
+
+{% block jquery_addon %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block title_body %}
+    Liste des notes
+{% endblock %}
+
+
+{% block content_body %}
+<div class="row">
+  <div class="container-fluid">
+    <div id="menu" class="panel panel-default">
+      <div class="panel-heading">
+        <ul class="list-inline">
+          <li><a href="{{ path('notes_create') }}">Ajouter une note</a></li>
+          <li><a href="{{ path('category_list') }}">Ajouter une categorie</a></li>
+          <li><input type="text" onkeyup="" class="" id="search" placeholder="Rechercher des tags..."/></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    {% for note in listNotes %}
+      <div class="panel-default">
+        <div class="panel-heading"> <b>{{ note.title }}</b> <br> {{ note.category.name }} - {{ note.date|date('d/m/Y') }} </div>
+        <div class="panel-body" id="content">
+          <p id="contentText">{{ note.content|raw }}</p>
+          <br><br>
+          <ul class="list-inline">
+            <li><a href="{{ path('notes_edit', {'id': note.id }) }}" class="btn btn-primary glyphicon glyphicon-edit"></a></li>
+            <li><a href="{{ path('notes_delete', {'id': note.id }) }}" class="btn btn-danger glyphicon glyphicon-remove"></a></li>
+          </ul>
+        </div>
+      </div>
+      <hr><br>
+    {% else %}
+      <h3>Pas de note ajoutée!</h3>
+    {% endfor %}
+</div>
+{% block QuickSearch %}
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function(){
+      var array = [];
+
+      var contents = document.body.getElementsByTagName("tag");
+      for(var i = 0; i < contents.length; i++){
+        var current = contents[i];
+        if(current.children.length === 0 && current.textContent.replace(/ |\n/g,'') !== ''){
+          array.push(current.textContent);
+        }
+      }
+      $("input").on('keyup', function(){
+        for(var i = 0; i < contents.length; i++){
+          if(array[i].includes($('input#search').val())){
+            console.log('le tag ' + array[i] + ' visible');
+          }
+          else {
+            console.log("le tag " + array[i] + " invisible");
+          }
+        }
+
+      });
+  });
+    </script>
+{% endblock %}
+{% endblock %}
+
+
+{% block notes_body %}
+
+  <ul>
+
+  </ul>
+
+{% endblock %}

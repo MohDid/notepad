@@ -1,0 +1,33 @@
+{# src/notesBundle/Resources/views/Notes/add.html.twig #}
+
+{% extends "notesBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block title_body %}
+    Ajouter une catégorie
+{% endblock %}
+
+
+{% block content_body %}
+<div class="row">
+    {{ include ("notesBundle:Notes:formCategory.html.twig") }}
+      <br><br>
+      <ul class="list-inline">
+        <li><a href="{{ path('category_list') }}">Retour à la liste des catégories</a></li>
+      </ul>
+  </div>
+  <hr><br>
+</div>
+{% endblock %}
+
+
+{% block notes_body %}
+
+  <ul>
+
+  </ul>
+
+{% endblock %}
