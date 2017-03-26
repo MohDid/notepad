@@ -1,0 +1,17 @@
+{# src/notesBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+      Notepad Web Application
+{% endblock %}
+
+
+{% block body %}
+
+  <h1>{% block title_body %}Index Page{% endblock %}</h1>
+
+  {% block content_body %}
+  {% endblock %}
+
+{% endblock %}
